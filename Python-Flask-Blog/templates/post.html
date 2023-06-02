@@ -1,0 +1,67 @@
+{% include "header.html" %}
+{% import "bootstrap/form.html" as wtf %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{post.img_url}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{post.title}}</h1>
+            <h2 class="subheading">{{post.subtitle}}</h2>
+            <span class="meta">Posted by
+              <a href="#">{{post.parent.name}}</a>
+              on {{post.date}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {{ post.body|safe }}
+          <hr>
+            {% if current_user.is_authenticated and current_user_id == 1 %}
+            <div class="clearfix">
+            <a class="btn btn-primary float-right" href="{{url_for('edit_post', post_id=post.id)}}">Edit Post</a>
+            </div>
+            {% endif %}
+
+
+                 <!--           Comments Area -->
+          <h2>Comment</h2>         
+
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='body') }}
+        {{ wtf.render_form(comment_form, novalidate=True) }}
+
+          <div class="col-lg-8 col-md-10 mx-auto comment">
+              <ul class="commentList">
+                {% for comment in post.childrenCo %}
+                <li>
+                    <div class="commenterImage">
+                      <img src="https://sothebys-md.brightspotcdn.com/dims4/default/15928fc/2147483647/strip/true/crop/1524x2000+0+0/resize/385x505!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F58%2F67%2Fa48c4def4abd8c24bd4e037c675f%2F406n10303-b74ff.png"/>
+                    </div>
+                    <div class="commentText">
+                      <p>{{comment.text|safe}} </p>
+                      <span class="date sub-text">{{comment.parentRU.name }}</span>
+                    </div>
+                </li>
+                {% endfor %}
+
+              </ul>
+            </div>
+
+
+          </div>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+{% include "footer.html" %}
