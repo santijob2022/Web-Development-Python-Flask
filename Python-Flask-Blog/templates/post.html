@@ -45,7 +45,8 @@
                 {% for comment in post.childrenCo %}
                 <li>
                     <div class="commenterImage">
-                      <img src="https://sothebys-md.brightspotcdn.com/dims4/default/15928fc/2147483647/strip/true/crop/1524x2000+0+0/resize/385x505!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F58%2F67%2Fa48c4def4abd8c24bd4e037c675f%2F406n10303-b74ff.png"/>
+                      <!-- <img src="https://sothebys-md.brightspotcdn.com/dims4/default/15928fc/2147483647/strip/true/crop/1524x2000+0+0/resize/385x505!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F58%2F67%2Fa48c4def4abd8c24bd4e037c675f%2F406n10303-b74ff.png"/> -->
+                      <img src='{{ comment.parentRU.email| gravatar }}'/>
                     </div>
                     <div class="commentText">
                       <p>{{comment.text|safe}} </p>
